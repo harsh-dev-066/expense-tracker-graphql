@@ -20,6 +20,7 @@ const express4_1 = require("@apollo/server/express4");
 const drainHttpServer_1 = require("@apollo/server/plugin/drainHttpServer");
 const typeDefs_1 = __importDefault(require("./typeDefs"));
 const resolvers_1 = __importDefault(require("./resolvers"));
+const connectDB_1 = require("./db/connectDB");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -33,6 +34,7 @@ const server = new server_1.ApolloServer({
 });
 function startApolloServer() {
     return __awaiter(this, void 0, void 0, function* () {
+        yield (0, connectDB_1.connectDB)();
         yield server.start();
         app.use("/", 
         // expressMiddleware accepts the same arguments:

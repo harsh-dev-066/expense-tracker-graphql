@@ -7,6 +7,7 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 
 import mergedTypeDefs from "./typeDefs";
 import mergedResolvers from "./resolvers";
+import { connectDB } from "./db/connectDB";
 
 const app = express();
 app.use(express.json());
@@ -23,6 +24,7 @@ const server = new ApolloServer({
 });
 
 async function startApolloServer() {
+  await connectDB();
   await server.start();
 
   app.use(
